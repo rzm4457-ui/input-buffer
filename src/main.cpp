@@ -55,7 +55,7 @@ class $modify(BufferGameLayer, GJBaseGameLayer) {
     }
 
     // Runs once per physics step; we inject the delayed click before the game processes input.
-    void processCommands(float dt) {
+    void processCommands(float dt, bool isHalfTick, bool isLastTick) {
         if (enabled()) {
             for (int i = 0; i < 2; ++i) {
                 auto& b = g_buf[i];
@@ -69,7 +69,7 @@ class $modify(BufferGameLayer, GJBaseGameLayer) {
 
                 if (!b.active) continue;
 
-                b.age++;
+                if (!isHalfTick) b.age++;
                 if (b.age > windowSteps()) {
                     b.active = false;
                 } else if (canActNow(p)) {
@@ -79,7 +79,7 @@ class $modify(BufferGameLayer, GJBaseGameLayer) {
                 }
             }
         }
-        GJBaseGameLayer::processCommands(dt);
+        GJBaseGameLayer::processCommands(dt, isHalfTick, isLastTick);
     }
 };
 
