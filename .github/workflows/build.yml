@@ -10,20 +10,16 @@ jobs:
       matrix:
         config:
           - name: Windows
-            os: windows-2022
+            os: windows-latest
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
     steps:
       - uses: actions/checkout@v4
-      - name: Use older Clang (fixes fmt error)
-        shell: pwsh
-        run: choco install llvm --version=19.1.7 --allow-downgrade -y
       - name: Build the mod
         uses: geode-sdk/build-geode-mod@main
         with:
-          bindings: geode-sdk/bindings
-          bindings-ref: main
           combine: true
+          sdk: nightly
           target: ${{ matrix.config.target }}
   package:
     name: Package
