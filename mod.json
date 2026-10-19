@@ -1,0 +1,41 @@
+{
+  "geode": "4.0.0",
+  "gd": { "win": "*" },
+  "version": "v1.0.0",
+  "id": "aether.input-buffer",
+  "name": "Input Buffer",
+  "developer": "aether",
+  "description": "Click a few frames early and the click still fires the moment you're able to act.",
+  "settings": {
+    "enabled": {
+      "type": "bool",
+      "name": "Enabled",
+      "default": true
+    },
+    "buffer-frames": {
+      "type": "int",
+      "name": "Buffer window (physics frames)",
+      "description": "How many physics frames early a click may be and still count. At 240 TPS, 4 frames = 1 frame at 60 FPS.",
+      "default": 4,
+      "min": 0,
+      "max": 60,
+      "control": { "input": true, "slider": true }
+    },
+    "require-held": {
+      "type": "bool",
+      "name": "Click must still be held",
+      "description": "If on, the buffered click only fires if you are still holding the button when you become able to act. If off, it fires as a quick tap even if you already released.",
+      "default": true
+    },
+    "buffer-player1": {
+      "type": "bool",
+      "name": "Buffer Player 1",
+      "default": true
+    },
+    "buffer-player2": {
+      "type": "bool",
+      "name": "Buffer Player 2 (dual mode)",
+      "default": true
+    }
+  }
+}
