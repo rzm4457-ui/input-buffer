@@ -10,7 +10,7 @@ jobs:
       matrix:
         config:
           - name: Windows
-            os: windows-latest
+            os: windows-2022
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
     steps:
