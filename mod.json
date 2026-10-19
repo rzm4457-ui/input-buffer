@@ -1,41 +1,52 @@
 {
   "geode": "5.11.2",
   "gd": { "win": "*" },
-  "version": "v1.0.0",
+  "version": "v2.0.0",
   "id": "aether.input-buffer",
   "name": "Input Buffer",
   "developer": "aether",
-  "description": "Click a few frames early and the click still fires the moment you're able to act.",
+  "description": "Snaps your slightly-early clicks to the exact frame of a bot replay, so clicking a few frames early still lands on the right frame.",
   "settings": {
     "enabled": {
       "type": "bool",
       "name": "Enabled",
       "default": true
     },
-    "buffer-frames": {
+    "replay-file": {
+      "type": "file",
+      "name": "Replay file (.gdr2)",
+      "description": "The bot recording of the level that contains the correct click frames. Export it from Megahack's replay folder. Changes are picked up the next time the level restarts.",
+      "default": "",
+      "control": {
+        "dialog": "open",
+        "filters": [
+          { "description": "GDR2 replay", "files": ["*.gdr2"] }
+        ]
+      }
+    },
+    "window": {
       "type": "int",
-      "name": "Buffer window (physics frames)",
-      "description": "How many physics frames early a click may be and still count. At 240 TPS, 4 frames = 1 frame at 60 FPS.",
+      "name": "Correction window (frames)",
+      "description": "A click up to this many frames BEFORE the replay's click is moved to the exact frame. Clicks earlier than this are left alone. 0 turns correction off.",
       "default": 4,
       "min": 0,
       "max": 60,
       "control": { "input": true, "slider": true }
     },
-    "require-held": {
-      "type": "bool",
-      "name": "Click must still be held",
-      "description": "If on, the buffered click only fires if you are still holding the button when you become able to act. If off, it fires as a quick tap even if you already released.",
-      "default": true
+    "frame-offset": {
+      "type": "int",
+      "name": "Frame alignment (advanced)",
+      "description": "Shifts which frame counts as the correct one. Leave at 0. If clicks consistently land 1 frame early or late compared to the replay, change this by 1.",
+      "default": 0,
+      "min": -20,
+      "max": 20,
+      "control": { "input": true, "slider": true }
     },
-    "buffer-player1": {
+    "debug": {
       "type": "bool",
-      "name": "Buffer Player 1",
-      "default": true
-    },
-    "buffer-player2": {
-      "type": "bool",
-      "name": "Buffer Player 2 (dual mode)",
-      "default": true
+      "name": "Show debug pop-ups",
+      "description": "Shows 'click snapped', 'click not corrected' and 'click sent' messages with frame numbers. Turn on to check the mod is working, then turn off.",
+      "default": false
     }
   }
 }
